@@ -9,10 +9,12 @@ import ListSortStep from '../ListSortStep';
 import DeleteStep from '../DeleteStep';
 
 import styles from './ActionsStep.module.scss';
+import EmptyStep from '../EmptyStep';
 
 const StepTypes = {
   DELETE: 'DELETE',
   SORT: 'SORT',
+  EMPTY: 'EMPTY',
 };
 
 const ActionsStep = React.memo(({ onNameEdit, onCardAdd, onSort, onDelete, onClose }) => {
@@ -37,6 +39,10 @@ const ActionsStep = React.memo(({ onNameEdit, onCardAdd, onSort, onDelete, onClo
     openStep(StepTypes.DELETE);
   }, [openStep]);
 
+  const handleEmptyListClick = useCallback(() => {
+    openStep(StepTypes.EMPTY);
+  }, [openStep]);
+
   const handleSortTypeSelect = useCallback(
     (type) => {
       onSort({
@@ -58,6 +64,16 @@ const ActionsStep = React.memo(({ onNameEdit, onCardAdd, onSort, onDelete, onClo
             title="common.deleteList"
             content="common.areYouSureYouWantToDeleteThisList"
             buttonContent="action.deleteList"
+            onConfirm={onDelete}
+            onBack={handleBack}
+          />
+        );
+      case StepTypes.EMPTY:
+        return (
+          <EmptyStep
+            title="common.emptyList"
+            content="common.areYouSureYouWantToEmptyThisList"
+            buttonContent="action.emptyList"
             onConfirm={onDelete}
             onBack={handleBack}
           />
@@ -92,6 +108,11 @@ const ActionsStep = React.memo(({ onNameEdit, onCardAdd, onSort, onDelete, onClo
           </Menu.Item>
           <Menu.Item className={styles.menuItem} onClick={handleDeleteClick}>
             {t('action.deleteList', {
+              context: 'title',
+            })}
+          </Menu.Item>
+          <Menu.Item className={styles.menuItem} onClick={handleEmptyListClick}>
+            {t('action.emptyList', {
               context: 'title',
             })}
           </Menu.Item>
