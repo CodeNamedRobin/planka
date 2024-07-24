@@ -27,10 +27,10 @@
  */
 
 module.exports = function conflict(message) {
-  const { res } = this;
+    const { res } = this;
 
-  return res.status(409).json({
-    code: 'E_CONFLICT',
-    message,
-  });
+    return res.status(409).json({
+        code: 'E_CONFLICT',
+        message,
+    });
 };

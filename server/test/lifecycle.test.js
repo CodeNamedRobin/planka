@@ -5,19 +5,19 @@ const rc = require('sails/accessible/rc');
 process.env.NODE_ENV = 'test';
 
 before(function beforeCallback(done) {
-  this.timeout(5000);
+    this.timeout(5000);
 
-  dotenv.config();
+    dotenv.config();
 
-  sails.lift(rc('sails'), (error) => {
-    if (error) {
-      return done(error);
-    }
+    sails.lift(rc('sails'), (error) => {
+        if (error) {
+            return done(error);
+        }
 
-    return done();
-  });
+        return done();
+    });
 });
 
 after(function afterCallback(done) {
-  sails.lower(done);
+    sails.lower(done);
 });

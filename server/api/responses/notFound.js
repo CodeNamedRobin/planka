@@ -27,10 +27,10 @@
  */
 
 module.exports = function notFound(message) {
-  const { res } = this;
+    const { res } = this;
 
-  return res.status(404).json({
-    code: 'E_NOT_FOUND',
-    message,
-  });
+    return res.status(404).json({
+        code: 'E_NOT_FOUND',
+        message,
+    });
 };

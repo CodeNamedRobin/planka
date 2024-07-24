@@ -27,10 +27,10 @@
  */
 
 module.exports = function forbidden(message) {
-  const { res } = this;
+    const { res } = this;
 
-  return res.status(403).json({
-    code: 'E_FORBIDDEN',
-    message,
-  });
+    return res.status(403).json({
+        code: 'E_FORBIDDEN',
+        message,
+    });
 };

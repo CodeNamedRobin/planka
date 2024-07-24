@@ -17,6 +17,8 @@ const sortList = (id, data, headers) =>
     },
   }));
 
+const emptyList = (id, headers) => socket.post(`/lists/${id}/empty`, undefined, headers);
+
 const deleteList = (id, headers) => socket.delete(`/lists/${id}`, undefined, headers);
 
 /* Event handlers */
@@ -31,10 +33,22 @@ const makeHandleListSort = (next) => (body) => {
   });
 };
 
+const makeHandleListEmpty = (next) => (body) => {
+  next({
+    ...body,
+    included: {
+      ...body.included,
+      cards: body.included.cards.map(transformCard),
+    },
+  });
+};
+
 export default {
   createList,
   updateList,
+  emptyList,
   sortList,
   deleteList,
   makeHandleListSort,
+  makeHandleListEmpty,
 };

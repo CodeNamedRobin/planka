@@ -9,19 +9,19 @@
  */
 
 module.exports.policies = {
-  /**
-   *
-   * Default policy for all controllers and actions, unless overridden.
-   * (`true` allows public access)
-   *
-   */
+    /**
+     *
+     * Default policy for all controllers and actions, unless overridden.
+     * (`true` allows public access)
+     *
+     */
 
-  '*': 'is-authenticated',
+    '*': 'is-authenticated',
 
-  'users/create': ['is-authenticated', 'is-admin'],
-  'users/delete': ['is-authenticated', 'is-admin'],
+    'users/create': ['is-authenticated', 'is-admin'],
+    'users/delete': ['is-authenticated', 'is-admin'],
 
-  'show-config': true,
-  'access-tokens/create': true,
-  'access-tokens/exchange-using-oidc': true,
+    'show-config': true,
+    'access-tokens/create': true,
+    'access-tokens/exchange-using-oidc': true,
 };

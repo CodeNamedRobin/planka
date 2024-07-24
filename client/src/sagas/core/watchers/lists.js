@@ -23,6 +23,10 @@ export default function* listsWatchers() {
     takeEvery(EntryActionTypes.LIST_SORT, ({ payload: { id, data } }) =>
       services.sortList(id, data),
     ),
+    takeEvery(EntryActionTypes.LIST_EMPTY, ({ payload: { id } }) => services.emptyList(id)),
+    takeEvery(EntryActionTypes.LIST_EMPTY_HANDLE, ({ payload: { list, cards } }) =>
+      services.handleListEmpty(list, cards),
+    ),
     takeEvery(EntryActionTypes.LIST_SORT_HANDLE, ({ payload: { list, cards } }) =>
       services.handleListSort(list, cards),
     ),

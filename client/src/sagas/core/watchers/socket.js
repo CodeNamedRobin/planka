@@ -84,6 +84,10 @@ const createSocketEventsChannel = () =>
       emit(entryActions.handleListUpdate(item));
     };
 
+    const handleListEmpty = api.makeHandleListEmpty(({ item, included: { cards } }) => {
+      emit(entryActions.handleListEmpty(item, cards));
+    });
+
     const handleListSort = api.makeHandleListSort(({ item, included: { cards } }) => {
       emit(entryActions.handleListSort(item, cards));
     });
@@ -203,6 +207,7 @@ const createSocketEventsChannel = () =>
     socket.on('listCreate', handleListCreate);
     socket.on('listUpdate', handleListUpdate);
     socket.on('listSort', handleListSort);
+    socket.on('listEmpty', handleListEmpty);
     socket.on('listDelete', handleListDelete);
 
     socket.on('labelCreate', handleLabelCreate);
@@ -262,6 +267,7 @@ const createSocketEventsChannel = () =>
       socket.off('listCreate', handleListCreate);
       socket.off('listUpdate', handleListUpdate);
       socket.off('listSort', handleListSort);
+      socket.off('listEmpty', handleListEmpty);
       socket.off('listDelete', handleListDelete);
 
       socket.off('labelCreate', handleLabelCreate);

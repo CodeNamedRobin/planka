@@ -70,6 +70,28 @@ export function* moveList(id, index) {
   });
 }
 
+export function* emptyList(id) {
+  yield put(actions.emptyList(id));
+
+  let list;
+  let cards;
+  try {
+    ({
+      item: list,
+      included: { cards },
+    } = yield call(request, api.emptyList, id));
+  } catch (error) {
+    yield put(actions.emptyList.failure(id, error));
+    return;
+  }
+
+  yield put(actions.emptyList.success(list, cards));
+}
+
+export function* handleListEmpty(list) {
+  yield put(actions.handleListEmpty(list));
+}
+
 // TODO: sort locally
 export function* sortList(id, data) {
   yield put(actions.sortList(id, data));
@@ -119,6 +141,8 @@ export default {
   updateList,
   handleListUpdate,
   moveList,
+  emptyList,
+  handleListEmpty,
   sortList,
   handleListSort,
   deleteList,

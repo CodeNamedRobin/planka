@@ -7,32 +7,32 @@
  */
 
 module.exports = function defineWatcherHook(sails) {
-  const checkSocketConnectionsToLogout = () => {
-    Object.keys(sails.io.sockets.adapter.rooms).forEach((room) => {
-      if (!room.startsWith('@accessToken:')) {
-        return;
-      }
+    const checkSocketConnectionsToLogout = () => {
+        Object.keys(sails.io.sockets.adapter.rooms).forEach((room) => {
+            if (!room.startsWith('@accessToken:')) {
+                return;
+            }
 
-      const accessToken = room.split(':')[1];
+            const accessToken = room.split(':')[1];
 
-      try {
-        sails.helpers.utils.verifyToken(accessToken);
-      } catch (error) {
-        sails.sockets.broadcast(room, 'logout');
-        sails.sockets.leaveAll(room);
-      }
-    });
-  };
+            try {
+                sails.helpers.utils.verifyToken(accessToken);
+            } catch (error) {
+                sails.sockets.broadcast(room, 'logout');
+                sails.sockets.leaveAll(room);
+            }
+        });
+    };
 
-  return {
-    /**
-     * Runs when this Sails app loads/lifts.
-     */
+    return {
+        /**
+         * Runs when this Sails app loads/lifts.
+         */
 
-    async initialize() {
-      sails.log.info('Initializing custom hook (`watcher`)');
+        async initialize() {
+            sails.log.info('Initializing custom hook (`watcher`)');
 
-      setInterval(checkSocketConnectionsToLogout, 60 * 1000);
-    },
-  };
+            setInterval(checkSocketConnectionsToLogout, 60 * 1000);
+        },
+    };
 };

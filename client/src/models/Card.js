@@ -178,6 +178,16 @@ export default class extends BaseModel {
         });
 
         break;
+      case ActionTypes.LIST_EMPTY_HANDLE:
+      case ActionTypes.LIST_EMPTY__SUCCESS:
+        payload.cards.forEach((card) => {
+          const cardModel = Card.withId(card.id);
+
+          if (cardModel) {
+            cardModel.deleteWithRelated();
+          }
+        });
+        break;
       case ActionTypes.CARD_CREATE:
       case ActionTypes.CARD_UPDATE__SUCCESS:
         Card.upsert(payload.card);

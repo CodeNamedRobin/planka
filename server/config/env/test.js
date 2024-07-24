@@ -20,51 +20,51 @@
  */
 
 module.exports = {
-  /**
-   *
-   * Tell Sails what database(s) it should use in test.
-   *
-   * (https://sailsjs.com/config/datastores)
-   *
-   */
-
-  datastores: {
     /**
      *
-     * Configure your default test database.
+     * Tell Sails what database(s) it should use in test.
      *
-     * 1. Choose an adapter:
-     *    https://sailsjs.com/plugins/databases
-     *
-     * 2. Install it as a dependency of your Sails app.
-     *    (For example:  npm install sails-mysql --save)
-     *
-     * 3. Then set it here (`adapter`), along with a connection URL (`url`)
-     *    and any other, adapter-specific customizations.
-     *    (See https://sailsjs.com/config/datastores for help.)
+     * (https://sailsjs.com/config/datastores)
      *
      */
 
-    default: {
-      adapter: 'sails-disk',
+    datastores: {
+        /**
+         *
+         * Configure your default test database.
+         *
+         * 1. Choose an adapter:
+         *    https://sailsjs.com/plugins/databases
+         *
+         * 2. Install it as a dependency of your Sails app.
+         *    (For example:  npm install sails-mysql --save)
+         *
+         * 3. Then set it here (`adapter`), along with a connection URL (`url`)
+         *    and any other, adapter-specific customizations.
+         *    (See https://sailsjs.com/config/datastores for help.)
+         *
+         */
 
-      /**
-       *
-       * More adapter-specific options
-       *
-       * > For example, for some hosted PostgreSQL providers (like Heroku), the
-       * > extra `ssl: true` option is mandatory and must be provided.
-       *
-       * More info:
-       * https://sailsjs.com/config/datastores
-       *
-       */
+        default: {
+            adapter: 'sails-disk',
 
-      inMemoryOnly: true,
+            /**
+             *
+             * More adapter-specific options
+             *
+             * > For example, for some hosted PostgreSQL providers (like Heroku), the
+             * > extra `ssl: true` option is mandatory and must be provided.
+             *
+             * More info:
+             * https://sailsjs.com/config/datastores
+             *
+             */
+
+            inMemoryOnly: true,
+        },
     },
-  },
 
-  log: {
-    level: 'warn',
-  },
+    log: {
+        level: 'warn',
+    },
 };

@@ -9,39 +9,39 @@ const nodemailer = require('nodemailer');
  */
 
 module.exports = function defineSmtpHook(sails) {
-  let transporter = null;
+    let transporter = null;
 
-  return {
-    /**
-     * Runs when this Sails app loads/lifts.
-     */
+    return {
+        /**
+         * Runs when this Sails app loads/lifts.
+         */
 
-    async initialize() {
-      if (!sails.config.custom.smtpHost) {
-        return;
-      }
+        async initialize() {
+            if (!sails.config.custom.smtpHost) {
+                return;
+            }
 
-      sails.log.info('Initializing custom hook (`smtp`)');
+            sails.log.info('Initializing custom hook (`smtp`)');
 
-      transporter = nodemailer.createTransport({
-        pool: true,
-        host: sails.config.custom.smtpHost,
-        port: sails.config.custom.smtpPort,
-        name: sails.config.custom.smtpName,
-        secure: sails.config.custom.smtpSecure,
-        auth: sails.config.custom.smtpUser && {
-          user: sails.config.custom.smtpUser,
-          pass: sails.config.custom.smtpPassword,
+            transporter = nodemailer.createTransport({
+                pool: true,
+                host: sails.config.custom.smtpHost,
+                port: sails.config.custom.smtpPort,
+                name: sails.config.custom.smtpName,
+                secure: sails.config.custom.smtpSecure,
+                auth: sails.config.custom.smtpUser && {
+                    user: sails.config.custom.smtpUser,
+                    pass: sails.config.custom.smtpPassword,
+                },
+            });
         },
-      });
-    },
 
-    getTransporter() {
-      return transporter;
-    },
+        getTransporter() {
+            return transporter;
+        },
 
-    isActive() {
-      return transporter !== null;
-    },
-  };
+        isActive() {
+            return transporter !== null;
+        },
+    };
 };

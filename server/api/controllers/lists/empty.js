@@ -14,10 +14,6 @@ module.exports = {
             regex: /^[0-9]+$/,
             required: true,
         },
-        type: {
-            type: 'string',
-            isIn: Object.values(List.SortTypes),
-        },
     },
 
     exits: {
@@ -32,12 +28,12 @@ module.exports = {
     async fn(inputs) {
         const { currentUser } = this.req;
 
-        const { list, board, project } = await sails.helpers.lists
+        const { list } = await sails.helpers.lists
             .getProjectPath(inputs.id)
             .intercept('pathNotFound', () => Errors.LIST_NOT_FOUND);
 
         const boardMembership = await BoardMembership.findOne({
-            boardId: board.id,
+            boardId: list.boardId,
             userId: currentUser.id,
         });
 
@@ -49,17 +45,27 @@ module.exports = {
             throw Errors.NOT_ENOUGH_RIGHTS;
         }
 
-        const cards = await sails.helpers.lists.sortOne.with({
-            project,
-            board,
-            record: list,
-            type: inputs.type,
-            actorUser: currentUser,
-            request: this.req,
+        const updatedList = await List.findOne({ id: inputs.id });
+        const cards = await sails.helpers.lists.getCards(inputs.id);
+        const board = await Board.findOne({ id: updatedList.boardId });
+        const project = await Project.findOne({ id: board.projectId });
+        cards.forEach(async (card) => {
+            await sails.helpers.cards.deleteOne.with({
+                project,
+                board,
+                list: updatedList,
+                record: card,
+                actorUser: currentUser,
+                request: this.req,
+            });
         });
 
+        if (!updatedList) {
+            throw Errors.LIST_NOT_FOUND;
+        }
+
         return {
-            item: list,
+            item: updatedList,
             included: {
                 cards,
             },

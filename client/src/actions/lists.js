@@ -92,6 +92,37 @@ const handleListSort = (list, cards) => ({
   },
 });
 
+const emptyList = (id) => ({
+  type: ActionTypes.LIST_EMPTY,
+  payload: {
+    id,
+  },
+});
+
+emptyList.success = (list, cards) => ({
+  type: ActionTypes.LIST_EMPTY__SUCCESS,
+  payload: {
+    list,
+    cards,
+  },
+});
+
+emptyList.failure = (id, error) => ({
+  type: ActionTypes.LIST_EMPTY__FAILURE,
+  payload: {
+    id,
+    error,
+  },
+});
+
+const handleListEmpty = (list) => ({
+  type: ActionTypes.LIST_EMPTY_HANDLE,
+  payload: {
+    list,
+    cards,
+  },
+});
+
 const deleteList = (id) => ({
   type: ActionTypes.LIST_DELETE,
   payload: {
@@ -128,6 +159,8 @@ export default {
   handleListUpdate,
   sortList,
   handleListSort,
+  emptyList,
+  handleListEmpty,
   deleteList,
   handleListDelete,
 };

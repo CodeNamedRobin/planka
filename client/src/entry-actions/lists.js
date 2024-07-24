@@ -55,6 +55,21 @@ const handleListSort = (list, cards) => ({
   },
 });
 
+const emptyList = (id) => ({
+  type: EntryActionTypes.LIST_EMPTY,
+  payload: {
+    id,
+  },
+});
+
+const handleListEmpty = (list, cards) => ({
+  type: EntryActionTypes.LIST_EMPTY_HANDLE,
+  payload: {
+    list,
+    cards,
+  },
+});
+
 const deleteList = (id) => ({
   type: EntryActionTypes.LIST_DELETE,
   payload: {
@@ -77,6 +92,8 @@ export default {
   moveList,
   sortList,
   handleListSort,
+  emptyList,
+  handleListEmpty,
   deleteList,
   handleListDelete,
 };

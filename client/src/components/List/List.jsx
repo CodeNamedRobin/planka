@@ -25,6 +25,7 @@ const List = React.memo(
     canEdit,
     onUpdate,
     onDelete,
+    onEmpty,
     onSort,
     onCardCreate,
   }) => {
@@ -126,6 +127,7 @@ const List = React.memo(
                     onCardAdd={handleCardAdd}
                     onDelete={onDelete}
                     onSort={onSort}
+                    onEmpty={onEmpty}
                   >
                     <Button className={classNames(styles.headerButton, styles.target)}>
                       <Icon fitted name="pencil" size="small" />
@@ -174,6 +176,8 @@ List.propTypes = {
   onSort: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onCardCreate: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onEmpty: PropTypes.func.isRequired,
 };
 
 export default List;

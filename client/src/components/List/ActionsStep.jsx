@@ -17,7 +17,7 @@ const StepTypes = {
   EMPTY: 'EMPTY',
 };
 
-const ActionsStep = React.memo(({ onNameEdit, onCardAdd, onSort, onDelete, onClose }) => {
+const ActionsStep = React.memo(({ onNameEdit, onCardAdd, onSort, onDelete, onEmpty, onClose }) => {
   const [t] = useTranslation();
   const [step, openStep, handleBack] = useSteps();
 
@@ -74,7 +74,7 @@ const ActionsStep = React.memo(({ onNameEdit, onCardAdd, onSort, onDelete, onClo
             title="common.emptyList"
             content="common.areYouSureYouWantToEmptyThisList"
             buttonContent="action.emptyList"
-            onConfirm={onDelete}
+            onConfirm={onEmpty}
             onBack={handleBack}
           />
         );
@@ -126,6 +126,7 @@ ActionsStep.propTypes = {
   onNameEdit: PropTypes.func.isRequired,
   onCardAdd: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onEmpty: PropTypes.func.isRequired,
   onSort: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };

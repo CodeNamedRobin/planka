@@ -5,23 +5,23 @@
  * @returns The IP address of the client that just made a request
  */
 const getRemoteAddress = (request) => {
-  let remoteAddress = request.ip;
+    let remoteAddress = request.ip;
 
-  // Assert if "X-Forwarded-For" header contains any addresses
-  if (process.env.TRUST_PROXY && !_.isEmpty(request.ips)) {
-    // eslint-disable-next-line prefer-destructuring
-    remoteAddress = request.ips[0];
-  }
+    // Assert if "X-Forwarded-For" header contains any addresses
+    if (process.env.TRUST_PROXY && !_.isEmpty(request.ips)) {
+        // eslint-disable-next-line prefer-destructuring
+        remoteAddress = request.ips[0];
+    }
 
-  // Convert address from IPV6 to IPV4 if client device is IPV4.
-  const defaultIPV6Regex = /^::ffff:((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/g;
-  if (remoteAddress.match(defaultIPV6Regex)) {
-    remoteAddress = remoteAddress.replace('::ffff:', '');
-  }
+    // Convert address from IPV6 to IPV4 if client device is IPV4.
+    const defaultIPV6Regex = /^::ffff:((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/g;
+    if (remoteAddress.match(defaultIPV6Regex)) {
+        remoteAddress = remoteAddress.replace('::ffff:', '');
+    }
 
-  return remoteAddress;
+    return remoteAddress;
 };
 
 module.exports = {
-  getRemoteAddress,
+    getRemoteAddress,
 };

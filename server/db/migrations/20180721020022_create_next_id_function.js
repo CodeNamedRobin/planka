@@ -1,5 +1,5 @@
 module.exports.up = (knex) =>
-  knex.raw(`
+    knex.raw(`
     CREATE SEQUENCE next_id_seq;
     CREATE FUNCTION next_id(OUT id BIGINT) AS $$
       DECLARE
@@ -18,7 +18,7 @@ module.exports.up = (knex) =>
   `);
 
 module.exports.down = (knex) =>
-  knex.raw(`
+    knex.raw(`
     DROP SEQUENCE next_id_seq;
     DROP FUNCTION next_id(OUT id BIGINT);
   `);

@@ -17,26 +17,28 @@ const logfile = `${process.cwd()}/logs/planka.log`;
 const logLevel = 'warn'; // process.env.NODE_ENV === 'production' ? 'info' : 'debug';
 
 const logFormat = winston.format.combine(
-  winston.format.uncolorize(),
-  winston.format.timestamp({ format: defaultLogTimestampFormat }),
-  winston.format.printf((log) => `${log.timestamp} [${log.level[0].toUpperCase()}] ${log.message}`),
+    winston.format.uncolorize(),
+    winston.format.timestamp({ format: defaultLogTimestampFormat }),
+    winston.format.printf(
+        (log) => `${log.timestamp} [${log.level[0].toUpperCase()}] ${log.message}`,
+    ),
 );
 
 // eslint-disable-next-line new-cap
 const customLogger = new winston.createLogger({
-  transports: [
-    new winston.transports.File({
-      level: logLevel,
-      format: logFormat,
-      filename: logfile,
-    }),
-    new winston.transports.Console({
-      level: logLevel,
-      format: logFormat,
-    }),
-  ],
+    transports: [
+        new winston.transports.File({
+            level: logLevel,
+            format: logFormat,
+            filename: logfile,
+        }),
+        new winston.transports.Console({
+            level: logLevel,
+            format: logFormat,
+        }),
+    ],
 });
 
 module.exports = {
-  customLogger,
+    customLogger,
 };

@@ -1,55 +1,55 @@
 const Errors = {
-  PROJECT_MANAGER_NOT_FOUND: {
-    projectManagerNotFound: 'Project manager not found',
-  },
+    PROJECT_MANAGER_NOT_FOUND: {
+        projectManagerNotFound: 'Project manager not found',
+    },
 };
 
 module.exports = {
-  inputs: {
-    id: {
-      type: 'string',
-      regex: /^[0-9]+$/,
-      required: true,
+    inputs: {
+        id: {
+            type: 'string',
+            regex: /^[0-9]+$/,
+            required: true,
+        },
     },
-  },
 
-  exits: {
-    projectManagerNotFound: {
-      responseType: 'notFound',
+    exits: {
+        projectManagerNotFound: {
+            responseType: 'notFound',
+        },
     },
-  },
 
-  async fn(inputs) {
-    const { currentUser } = this.req;
+    async fn(inputs) {
+        const { currentUser } = this.req;
 
-    let projectManager = await ProjectManager.findOne(inputs.id);
+        let projectManager = await ProjectManager.findOne(inputs.id);
 
-    if (!projectManager) {
-      throw Errors.PROJECT_MANAGER_NOT_FOUND;
-    }
+        if (!projectManager) {
+            throw Errors.PROJECT_MANAGER_NOT_FOUND;
+        }
 
-    const isProjectManager = await sails.helpers.users.isProjectManager(
-      currentUser.id,
-      projectManager.projectId,
-    );
+        const isProjectManager = await sails.helpers.users.isProjectManager(
+            currentUser.id,
+            projectManager.projectId,
+        );
 
-    if (!isProjectManager) {
-      throw Errors.PROJECT_MANAGER_NOT_FOUND; // Forbidden
-    }
+        if (!isProjectManager) {
+            throw Errors.PROJECT_MANAGER_NOT_FOUND; // Forbidden
+        }
 
-    // TODO: check if the last one
-    projectManager = await sails.helpers.projectManagers.deleteOne.with({
-      record: projectManager,
-      actorUser: currentUser,
-      request: this.req,
-    });
+        // TODO: check if the last one
+        projectManager = await sails.helpers.projectManagers.deleteOne.with({
+            record: projectManager,
+            actorUser: currentUser,
+            request: this.req,
+        });
 
-    if (!projectManager) {
-      throw Errors.PROJECT_MANAGER_NOT_FOUND;
-    }
+        if (!projectManager) {
+            throw Errors.PROJECT_MANAGER_NOT_FOUND;
+        }
 
-    return {
-      item: projectManager,
-    };
-  },
+        return {
+            item: projectManager,
+        };
+    },
 };

@@ -9,43 +9,44 @@ const openidClient = require('openid-client');
  */
 
 module.exports = function defineOidcHook(sails) {
-  let client = null;
+    let client = null;
 
-  return {
-    /**
-     * Runs when this Sails app loads/lifts.
-     */
+    return {
+        /**
+         * Runs when this Sails app loads/lifts.
+         */
 
-    async initialize() {
-      if (!sails.config.custom.oidcIssuer) {
-        return;
-      }
+        async initialize() {
+            if (!sails.config.custom.oidcIssuer) {
+                return;
+            }
 
-      sails.log.info('Initializing custom hook (`oidc`)');
+            sails.log.info('Initializing custom hook (`oidc`)');
 
-      const issuer = await openidClient.Issuer.discover(sails.config.custom.oidcIssuer);
+            const issuer = await openidClient.Issuer.discover(sails.config.custom.oidcIssuer);
 
-      const metadata = {
-        client_id: sails.config.custom.oidcClientId,
-        client_secret: sails.config.custom.oidcClientSecret,
-        redirect_uris: [sails.config.custom.oidcRedirectUri],
-        response_types: ['code'],
-        userinfo_signed_response_alg: sails.config.custom.oidcUserinfoSignedResponseAlg,
-      };
+            const metadata = {
+                client_id: sails.config.custom.oidcClientId,
+                client_secret: sails.config.custom.oidcClientSecret,
+                redirect_uris: [sails.config.custom.oidcRedirectUri],
+                response_types: ['code'],
+                userinfo_signed_response_alg: sails.config.custom.oidcUserinfoSignedResponseAlg,
+            };
 
-      if (sails.config.custom.oidcIdTokenSignedResponseAlg) {
-        metadata.id_token_signed_response_alg = sails.config.custom.oidcIdTokenSignedResponseAlg;
-      }
+            if (sails.config.custom.oidcIdTokenSignedResponseAlg) {
+                metadata.id_token_signed_response_alg =
+                    sails.config.custom.oidcIdTokenSignedResponseAlg;
+            }
 
-      client = new issuer.Client(metadata);
-    },
+            client = new issuer.Client(metadata);
+        },
 
-    getClient() {
-      return client;
-    },
+        getClient() {
+            return client;
+        },
 
-    isActive() {
-      return client !== null;
-    },
-  };
+        isActive() {
+            return client !== null;
+        },
+    };
 };
