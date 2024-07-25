@@ -176,7 +176,6 @@ List.propTypes = {
   onSort: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onCardCreate: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired,
   onEmpty: PropTypes.func.isRequired,
 };
 

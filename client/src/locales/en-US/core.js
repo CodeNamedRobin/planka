@@ -32,6 +32,7 @@ export default {
       areYouSureYouWantToDeleteThisProject: 'Are you sure you want to delete this project?',
       areYouSureYouWantToDeleteThisTask: 'Are you sure you want to delete this task?',
       areYouSureYouWantToDeleteThisUser: 'Are you sure you want to delete this user?',
+      areYouSureYouWantToEmptyThisList: 'Are you sure you want to empty this list?',
       areYouSureYouWantToLeaveBoard: 'Are you sure you want to leave the board?',
       areYouSureYouWantToLeaveProject: 'Are you sure you want to leave the project?',
       areYouSureYouWantToRemoveThisManagerFromProject:
@@ -88,6 +89,7 @@ export default {
       editUsername_title: 'Edit Username',
       email: 'E-mail',
       emailAlreadyInUse: 'E-mail already in use',
+      emptyList: 'Empty list',
       enterCardTitle: 'Enter card title... [Ctrl+Enter] to auto-open.',
       enterDescription: 'Enter description...',
       enterFilename: 'Enter filename',
@@ -218,6 +220,7 @@ export default {
       editStopwatch_title: 'Edit Stopwatch',
       editTitle_title: 'Edit Title',
       editUsername_title: 'Edit Username',
+      emptyList: 'Empty list',
       hideDetails: 'Hide details',
       import: 'Import',
       leaveBoard: 'Leave board',
